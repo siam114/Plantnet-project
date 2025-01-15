@@ -85,6 +85,26 @@ async function run() {
       res.send(result)
     })
 
+    //get all users data
+    app.get('/all-users/:email',verifyToken, async(req,res)=>{
+      const email = req.params.email
+      const query = {email: {$ne: email}}
+      const result = await userCollection.find(query).toArray()
+      res.send(result)
+    })
+
+    //update a user role and status
+    app.patch('/user/role/:email',verifyToken, async(req,res)=>{
+      const email = req.params.email
+      const {role} = req.body
+      const filter = {email}
+      const updateDoc = {
+        $set: {role, status: 'Varified'},
+      }
+      const result = await userCollection.updateOne(filter, updateDoc)
+      res.send(result)
+    })
+
     //get user role
     app.get('/users/role/:email', async(req,res)=>{
       const email = req.params.email
