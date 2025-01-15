@@ -12,7 +12,7 @@ import LoadingSpinner from '../../components/Shared/LoadingSpinner'
 const PlantDetails = () => {
   const {id} = useParams();
   let [isOpen, setIsOpen] = useState(false)
-  const {data: plant=[], isLoading, refetch} = useQuery({
+  const {data: plant={}, isLoading, refetch} = useQuery({
     queryKey: ['plant', id],
     queryFn: async() =>{
       const {data} = await axios(`${import.meta.env.VITE_API_URL}/plants/${id}`)
