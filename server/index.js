@@ -344,14 +344,17 @@ async function run() {
       //generate chart data
       const chartData = await ordersCollection.aggregate([
         {
-          $group: {
+          $sort: {_id: -1}
+        },
+        {
+          $addFields: {
             _id: {
               $dateToString:{
                 format: '%Y-%m-%d',
                 date: {$toDate: '$_id'},
               },
             },
-            quantity: { $sum: '$quantiry' },
+            quantity: { $sum: '$quantity' },
             price: { $sum: '$price'},
             order: { $sum: 1 },
           },
@@ -364,8 +367,9 @@ async function run() {
             order: 1,
             price: 1,
           }
-        }
-      ]).next()
+        },
+        
+      ]).toArray()
 
       //get total revenue, total order
       const orderDetails = await ordersCollection.aggregate([

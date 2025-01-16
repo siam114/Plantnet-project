@@ -3,7 +3,7 @@ import { Area, Bar, CartesianGrid, ComposedChart, Legend, Line, Tooltip, XAxis, 
 
 const Chart = ({chartData}) => {
   return (
-    <ComposedChart width={730} height={250} data={[chartData]}>
+    <ComposedChart width={730} height={250} data={chartData}>
       <XAxis dataKey="date" />
       <YAxis />
       <Tooltip />
